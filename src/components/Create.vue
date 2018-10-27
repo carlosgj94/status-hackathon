@@ -16,7 +16,7 @@ export default {
   name: 'create',
   methods: {
     getQRCode () {
-      const requestQRCodeId = createRequestQRCode(this.requestData, window.querySelector('#my-container'), this.options)
+      const requestQRCodeId = createRequestQRCode(this.requestData, document.querySelector('#my-container'), this.options)
       console.log(requestQRCodeId)
     }
   },
