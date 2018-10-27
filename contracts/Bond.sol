@@ -108,6 +108,13 @@ contract Bond {
         return bond.principal + (((bond.interestRate*100) / bond.principal) * bond.duration);
     }
 
+    function isBiddingTime() public view returns(bool) {
+        if (bond.creationDate + bond.bidTimeFrame < now)
+            return true;
+        else
+            return false;
+    }
+
     function addBid(uint _interestRate, uint _bloomId) public returns(bool) {
         require(_interestRate < bond.interestRate);
         require(bond.creationDate + bond.bidTimeFrame < now);
@@ -138,5 +145,21 @@ contract Bond {
             bond.complete = true;
         }
         bond.borrowerAddress.transfer(msg.value);
+    }
+
+    function setDefaulted() public {
+        require(bond.complete != false);
+        require(isBiddingTime() == false);
+
+        uint _yearsPassed = (block.number - bond.creationDate + bond.bidTimeFrame)/2102400;
+        if (
+            (_yearsPassed >= bond.duration && bond.complete == false) ||
+            (bond.amountRepaid < _yearsPassed * (bond.interestRate * 100) / bond.principal)
+        ) {
+            bond.defaulted = true;
+            // These scammers...
+            // Do something in here
+        }
+
     }
 }

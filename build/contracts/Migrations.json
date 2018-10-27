@@ -1383,10 +1383,10 @@
     "1540647430390": {
       "events": {},
       "links": {},
-      "address": "0x6A7070623c4F3Bb3290bad490b2FAeDC567837A3",
-      "transactionHash": "0x77f986448151f11e80e018e4f77a0886f845c2e783ca6da2db86c0c28f17ce18"
+      "address": "0xB1430a4a26534d9C41F31FEF2F5d553A56DAFe20",
+      "transactionHash": "0x75a670cee2337c34be08f02df06d1b26048e59e2b8a5cdcbdf9aca35f0ca61c7"
     }
   },
   "schemaVersion": "3.0.0-beta.1",
-  "updatedAt": "2018-10-27T19:52:05.183Z"
+  "updatedAt": "2018-10-27T20:55:59.647Z"
 }
