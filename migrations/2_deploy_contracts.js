@@ -1,5 +1,5 @@
-var DB = artifacts.require("./DB.sol");
+var LoanRegistry = artifacts.require('./LoanRegistry.sol')
 
 module.exports = function (deployer) {
-  deployer.deploy(DB);
-};
+  deployer.deploy(LoanRegistry)
+}

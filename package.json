@@ -17,6 +17,7 @@
     "ethereum-blockies": "^0.1.1",
     "ethereumjs-wallet": "^0.6.0",
     "gravatar-api": "^1.5.0",
+    "openzeppelin-solidity": "^2.0.0",
     "solidity-sha3": "^0.4.1",
     "truffle-hdwallet-provider": "0.0.3",
     "vue": "^2.5.3",
