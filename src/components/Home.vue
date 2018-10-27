@@ -10,16 +10,11 @@
     name: 'home',
     methods: {
     },
-    beforeCreate: function () {
-      LoanRegistry.init().then(() => {
+    beforeCreate: async function () {
+      await LoanRegistry.init()
         // this.getCurrentGuessesByAddress()
-        LoanRegistry.addLoan(
-          49,
-          '0xbE916B6d3fb4bD6A54D1498C64542B377415C0D6'
-        )
-      }).catch(err => {
-        console.log(err)
-      })
+      console.log(await LoanRegistry.getLoansLength())
+      console.log(await LoanRegistry.getLoans(0))
     },
     components: {
     }
