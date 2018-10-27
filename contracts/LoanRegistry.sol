@@ -15,5 +15,6 @@ contract LoanRegistry {
         loansByBloomId[_bloomId].push(_loanAddress);
         loans.push(_loanAddress);
         emit LoanCreated(_bloomId, _loanAddress);
+        return true;
     }
 }
