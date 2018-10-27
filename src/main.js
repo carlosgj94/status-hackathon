@@ -3,11 +3,12 @@ import App from './App'
 import Web3 from 'web3'
 import router from './router'
 // CSS
-// import BootstrapVue from 'bootstrap-vue'
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-// Libraries
+Vue.use(BootstrapVue)
 
-// Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
 window.addEventListener('load', function () {
