@@ -22,6 +22,8 @@ contract Bond {
         uint duration; // The amount of years
         uint interestRate;
         bool granted;
+        uint rating;
+        address auditor;
     }
 
     BondStruct public bond;
@@ -35,7 +37,8 @@ contract Bond {
         bool _defaulted,
         uint _duration,
         uint _interestRate,
-        address _loanRegistry
+        address _loanRegistry,
+        address _auditor
     ) public {
         BondStruct memory _bond = BondStruct({
             lender: _lender,
@@ -49,7 +52,9 @@ contract Bond {
             creationDate: now,
             duration: _duration,
             interestRate: _interestRate,
-            granted: false
+            granted: false,
+            rating: 0,
+            auditor: _auditor
         });
         bond = _bond;
 
@@ -106,6 +111,21 @@ contract Bond {
         require(bond.granted == true);
 
         return bond.principal + (((bond.interestRate*100) / bond.principal) * bond.duration);
+    }
+
+    function getRating() public view returns(uint) {
+        return bond.rating;
+    }
+
+    function getAuditor() public view returns(address) {
+        return bond.auditor;
+    }
+
+    function setRating(uint rate) public {
+        require(msg.sender == bond.auditor);
+        require(rate < 32);
+
+        bond.rating = rate;
     }
 
     function isBiddingTime() public view returns(bool) {

@@ -14,7 +14,7 @@ import topbar from './components/Header.vue'
 export default {
   name: 'app',
   components: {
-    "topbar":topbar
+    'topbar': topbar
   },
   data () {
     return {
@@ -24,8 +24,12 @@ export default {
 </script
 <style>
   body {
-    background-color:#DDD
+    background-color:#DDD;
   }
 
+  .qr {
+    background-color: #000;
+    width: 500px;
+  }
 </style>
 
