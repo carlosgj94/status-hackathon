@@ -214,6 +214,22 @@ const BondHelper = {
         reject(err)
       })
     })
+  },
+
+  setDefaulted: function (amount) {
+    let self = this
+    return new Promise((resolve, reject) => {
+      self.instance.setDefaulted(
+        {
+          from: self.address[0],
+          gas: 600000
+        }
+      ).then(() => {
+        resolve()
+      }).catch(err => {
+        reject(err)
+      })
+    })
   }
 }
 
