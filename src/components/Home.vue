@@ -12,7 +12,6 @@
     },
     beforeCreate: async function () {
       await LoanRegistry.init()
-        // this.getCurrentGuessesByAddress()
       console.log(await LoanRegistry.getLoansLength())
       console.log(await LoanRegistry.getLoans(0))
     },
