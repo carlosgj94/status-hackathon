@@ -66,6 +66,28 @@ const LoanRegistry = {
         reject(err)
       })
     })
+  },
+
+  getLoansLength: function () {
+    let self = this
+    return new Promise((resolve, reject) => {
+      self.instance.getLoansLength.call().then((loansLength) => {
+        resolve(loansLength.c[0])
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  getLoans: function (index) {
+    let self = this
+    return new Promise((resolve, reject) => {
+      self.instance.getLoans.call(index).then((loans) => {
+        resolve(loans)
+      }).catch(err => {
+        reject(err)
+      })
+    })
   }
 }
 
