@@ -36,6 +36,7 @@
       await LoanRegistry.init()
       console.log(await LoanRegistry.getLoansLength())
       console.log(await LoanRegistry.getLoans(0))
+      
     },
     components: {
     },
