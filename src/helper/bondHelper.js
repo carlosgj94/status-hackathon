@@ -168,6 +168,17 @@ const BondHelper = {
     })
   },
 
+  isBiddingTime: function () {
+    let self = this
+    return new Promise((resolve, reject) => {
+      self.instance.isBiddingTime.call().then((isBiddingTime) => {
+        resolve(isBiddingTime)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
   addBid: function (interestRate, bloomId) {
     let self = this
     return new Promise((resolve, reject) => {
