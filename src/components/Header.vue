@@ -15,8 +15,8 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="/Home">List of available bonds</b-nav-item>
-          <b-nav-item href="/Create" >Create a new bond</b-nav-item>         
+          <b-nav-item href="/Home"><b>List bonds</b></b-nav-item>
+          <b-nav-item href="/Create" >Create bond</b-nav-item>         
         </b-navbar-nav>
 
       </b-collapse>
@@ -35,5 +35,7 @@
 </script>
 
 <style scoped>
-
+.nav-link {
+  color: white !important;
+}
 </style>

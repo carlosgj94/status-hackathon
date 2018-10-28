@@ -1,5 +1,6 @@
 <template>
 <div class="justify-content-md-center litle-margin">
+  <div class='cross-background'></div>
     <!--Form-->
     <div id="my-container" class=""></div>
     <b-form @submit="onSubmit">
@@ -159,5 +160,17 @@ export default {
   margin: 0% 10%;
   padding: 3% 0%;
   max-width: 800px;
+}
+
+.cross-background {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: 
+ -webkit-linear-gradient(-45deg, rgba(250, 250, 250, 0.9) 45%, rgba(55, 230, 235, 1) 0%);
+
+z-index:-2;
 }
 </style>
