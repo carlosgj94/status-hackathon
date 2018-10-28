@@ -15,8 +15,8 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="/Home"><b>List bonds</b></b-nav-item>
-          <b-nav-item href="/Create" >Create bond</b-nav-item>         
+          <b-nav-item href="/#/home"><b>List bonds</b></b-nav-item>
+          <b-nav-item href="/#/create" >Create bond</b-nav-item>         
         </b-navbar-nav>
 
       </b-collapse>
