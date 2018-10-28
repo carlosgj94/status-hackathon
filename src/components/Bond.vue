@@ -10,12 +10,13 @@
                 <br>
                   <!-- {{ SPgrade }}  -->
                    <button type="button" class="btn btn-secondary btn-sm">{{ details.auditor }}  </button>
+                   
               </p>
             </b-card>
 
           </b-col>
           <b-col cols="8">
-            <h3>Bond  <b-badge variant="info">{{details.principal}}  ♦</b-badge></h3> 
+            <h3>Bond  <b-badge variant="info">{{details.principal/100}}  ♦</b-badge></h3> 
             <h5>Borrower Bloom Id  
               <b-badge>
                 {{details.borrower}} 
@@ -128,7 +129,7 @@ export default {
     SPgrade () {
 
       // const gr= 20-this.info.grade
-      console.log(this.info.grade)
+      // console.log(this.info.grade)
       // return grades["S&PRating"][gr]
       return "jj"
     }
