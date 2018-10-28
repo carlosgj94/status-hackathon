@@ -76,7 +76,8 @@
       </b-form-group>
 
       <br>
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <br>
+      <b-button size='lg' type="submit" variant="primary">Submit</b-button>
 
     </b-form>
   </div>

@@ -5,7 +5,7 @@
         <b-row>
           <b-col></b-col>     
           <b-col sm="8">
-            <div class="text-center"  v-show="loading===true">
+            <div class="text-center"  v-if="loading">
                 <br><br>
                 <h2 class="text-center" style="color:#777">Loading...</h2>
                 <br>
@@ -14,7 +14,7 @@
             <div v-show="error">
               {{ error }}
             </div>
-            <div v-show="loading===true"  >
+            <div v-show="loading">
               <h1 style="color:white" class="loancardwrapper">Loans</h1>
               <div class=" mxauto loancardwrapper" v-for="loan in loans" :key="loan.contract">
                 
@@ -116,40 +116,38 @@
         }
 
         this.loans[3] = {
-          contract: "0xb65b7189b95d7261edcee1c8475e843c9771e287",
-          lender : null,
-          borrower : 38383883,
-          borrowerAddress: "0xD48F0C3B257584181e144B51F8D55ac7cFD01d50",
+          contract: '0xb65b7189b95d7261edcee1c8475e843c9771e287',
+          lender: null,
+          borrower: 38383883,
+          borrowerAddress: '0xD48F0C3B257584181e144B51F8D55ac7cFD01d50',
           principal: 3432,
           bidTimeFrame: 2,
           amountRepaid: 0,
-          color:"danger",
+          color: 'danger',
           complete: false,
-          defaulted : false,
+          defaulted: false,
           creationDate: 1540685236509,
-          duration : 4,
+          duration: 4,
           interestRate: 234,
           granted: false,
           rating: 5,
-          auditor: "Some Auditor",
+          auditor: 'Some Auditor'
         }
 
+      let self = this
       setTimeout(function () {
-        this.loading = false 
-        console.log("left loading", this.loading)
+        self.loading = false
+        console.log('left loading', self.loading)
       }, 3000)
 
       setTimeout(function () {
-        console.log("Loading is now ", this.loading)
+        console.log('Loading is now ', self.loading)
       }, 4000)
         // for (let i = 0; i < this.loansAddresses.length; i++) {
         //   this.loans[i] = await bond.getthis.loansAddresses[i];
-          
         // }
-   
-      
     },
-    mounted: function() {
+    mounted: function () {
 
     },
     components: {
