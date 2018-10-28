@@ -33,31 +33,31 @@
 </template>
 
 <script>
-import LoanRegistry from "../helper/loanRegistryHelper";
+import LoanRegistry from '../helper/loanRegistryHelper'
 import bond from './Bond.vue'
 
 export default {
-  name: "listing",
+  name: 'listing',
   methods: {},
-  beforeCreate: async function() {
-    this.error = this.loansAddresses = null;
+  beforeCreate: async function () {
+    this.error = this.loansAddresses = null
     await LoanRegistry.init()
 
     // this.loansLength = await LoanRegistry.getLoansLength()
     this.loansAddresses = await LoanRegistry.getLoans(0)
     // console.log(this.loansAddresses)
   },
-  beforeMount: function() {
-    this.loans = []; // weirdly useful
+  beforeMount: function () {
+    this.loans = [] // weirdly useful
     this.loans[0] = {
-      contract: "0x59d4d9c24cd9517724bce24666bde8aeb27b7d54",
+      contract: '0x59d4d9c24cd9517724bce24666bde8aeb27b7d54',
       lender: null,
       borrower: 7890,
-      borrowerAddress: "0xc66bD3780C297Baa1d910923c8b47Dce4b284076",
+      borrowerAddress: '0xc66bD3780C297Baa1d910923c8b47Dce4b284076',
       principal: 80808288, // in cents
       bidTimeFrame: 88855888,
       timeLeft: 200300,
-      color: "",
+      color: '',
       amountRepaid: 0,
       complete: false,
       defaulted: false,
@@ -66,18 +66,18 @@ export default {
       interestRate: 434,
       granted: false,
       rating: 14,
-      auditor: "S&P"
-    };
+      auditor: 'S&P'
+    }
     this.loans[1] = {
-      contract: "0x475e843c9771e287b65b7189b95d7261edcee1c8",
+      contract: '0x475e843c9771e287b65b7189b95d7261edcee1c8',
       lender: null,
       borrower: 38523,
-      borrowerAddress: "0x8D55ac7cFD01d50D48F0C3B257584181e144B51F",
+      borrowerAddress: '0x8D55ac7cFD01d50D48F0C3B257584181e144B51F',
       principal: 3432,
       bidTimeFrame: 55534332,
       amountRepaid: 0,
       timeLeft: 20300,
-      color: "",
+      color: '',
       complete: false,
       defaulted: false,
       creationDate: 1540685256509,
@@ -85,20 +85,19 @@ export default {
       interestRate: 234,
       granted: false,
       rating: 20,
-      auditor: "His Grandma"
-    };
+      auditor: 'His Grandma'
+    }
 
     this.loans[2] = {
-      contract: "0x89b95d7261edcee1c8475e843c9771e287b65b71",
+      contract: '0x89b95d7261edcee1c8475e843c9771e287b65b71',
       lender: 898983773,
       borrower: 38523,
-      borrowerAddress: "0xD48F0C3B257584181e144B51F8D55ac7cFD01d50",
+      borrowerAddress: '0xD48F0C3B257584181e144B51F8D55ac7cFD01d50',
       principal: 735433,
       bidTimeFrame: 34234,
       amountRepaid: 0,
       timeLeft: 0,
-
-      color: "secondary",
+      color: 'secondary',
       complete: false,
       defaulted: false,
       creationDate: 1540685255509,
@@ -106,20 +105,20 @@ export default {
       interestRate: 234,
       granted: false,
       rating: 12,
-      auditor: "Registered Auditors"
-    };
+      auditor: 'Registered Auditors'
+    }
 
     this.loans[3] = {
-      contract: "0xb65b7189b95d7261edcee1c8475e843c9771e287",
+      contract: '0xb65b7189b95d7261edcee1c8475e843c9771e287',
       lender: null,
       borrower: 38383883,
-      borrowerAddress: "0xD48F0C3B257584181e144B51F8D55ac7cFD01d50",
+      borrowerAddress: '0xD48F0C3B257584181e144B51F8D55ac7cFD01d50',
       principal: 3432,
       bidTimeFrame: 2,
       amountRepaid: 0,
       timeLeft: 0,
 
-      color: "danger",
+      color: 'danger',
       complete: false,
       defaulted: false,
       creationDate: 1540685236509,
@@ -127,24 +126,22 @@ export default {
       interestRate: 234,
       granted: false,
       rating: 5,
-      auditor: "Some Auditor"
-    };
+      auditor: 'Some Auditor'
+    }
 
-    let self = this;
-    setTimeout(function() {
-      self.loading = false;
-    }, 2000);
-
-
+    let self = this
+    setTimeout(function () {
+      self.loading = false
+    }, 2000)
   },
-  mounted: function() {},
+  mounted: function () {},
   components: {
-    "bond":bond
+    'bond': bond
   },
   computed: {
 
   },
-  data() {
+  data () {
     return {
       currentPage: 1,
       loading: true,
@@ -152,9 +149,9 @@ export default {
       loansAddresses: null,
       loans: [],
       registry: null
-    };
+    }
   }
-};
+}
 </script>
 
 <style scoped>
