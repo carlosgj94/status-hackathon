@@ -78,6 +78,17 @@ const BondHelper = {
     })
   },
 
+  getBloomLenderAddress: function () {
+    let self = this
+    return new Promise((resolve, reject) => {
+      self.instance.getLenderAddress.call().then((lender) => {
+        resolve(lender)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
   getBloomBorrower: function () {
     let self = this
     return new Promise((resolve, reject) => {
@@ -268,6 +279,24 @@ const BondHelper = {
         }
       ).then(() => {
         resolve()
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  transferBond: function (newOwner, bloomId) {
+    let self = this
+    return new Promise((resolve, reject) => {
+      self.instance.transferBond(
+        newOwner,
+        bloomId,
+        {
+          from: self.address[0],
+          gas: 600000
+        }
+      ).then((transfered) => {
+        resolve(transfered)
       }).catch(err => {
         reject(err)
       })

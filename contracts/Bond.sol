@@ -9,14 +9,17 @@ import "./LoanRegistry.sol";
 
 
 contract Bond {
+
+    event BondTransfered(address newOwner, uint bloomId);
+
     struct BondStruct {
         uint lender;
+        address lenderAddress;
         uint borrower;
         address borrowerAddress;
         uint principal;
         uint bidTimeFrame;
         uint amountRepaid;
-        bool complete;
         bool defaulted;
         uint creationDate;
         uint duration; // The amount of years
@@ -39,12 +42,12 @@ contract Bond {
     ) public {
         BondStruct memory _bond = BondStruct({
             lender: 0,
+            lenderAddress: address(0),
             borrower: _borrower,
             borrowerAddress: address(0),
             principal: _principal,
             bidTimeFrame: _bidTimeFrame,
             amountRepaid: 0,
-            complete: false,
             defaulted: false,
             creationDate: now,
             duration: _duration,
@@ -62,6 +65,10 @@ contract Bond {
 
     function getLender() public view returns(uint) {
         return bond.lender;
+    }
+
+    function getLenderAddress() public view returns(address) {
+        return bond.lenderAddress;
     }
 
     function getBorrower() public view returns(uint) {
@@ -85,7 +92,10 @@ contract Bond {
     }
 
     function getComplete() public view returns(bool) {
-        return bond.complete;
+        if (bond.creationDate + bond.bidTimeFrame + bond.duration <= now &&
+            bond.amountRepaid >= getTotalToPay()) {
+            return true;
+        }
     }
 
     function getDefaulted() public view returns(bool) {
@@ -135,7 +145,7 @@ contract Bond {
     function addBid(uint _interestRate, uint _bloomId) public returns(bool) {
         require(_interestRate < bond.interestRate);
         require(bond.creationDate + bond.bidTimeFrame < now);
-        require(bond.complete == false);
+        require(getComplete() == false);
         
         bond.borrower = _bloomId;
         bond.borrowerAddress = msg.sender;
@@ -145,7 +155,7 @@ contract Bond {
 
     function giveLoan() public payable {
         require(bond.creationDate + bond.bidTimeFrame > now);
-        require(bond.complete == false);
+        require(getComplete() == false);
         // require(bond.creationDate + bond.bidTimeFrame > now);
 
         if (msg.value >= bond.principal || address(this).balance >= bond.principal) {
@@ -154,23 +164,20 @@ contract Bond {
     }
 
     function payCouponRate() public payable {
-        require(bond.complete == true);
+        require(getComplete() == true);
         require(bond.creationDate + bond.bidTimeFrame > now);
         
         bond.amountRepaid += msg.value;
-        if (getTotalToPay() <= bond.amountRepaid) {
-            bond.complete = true;
-        }
         bond.borrowerAddress.transfer(msg.value);
     }
 
     function setDefaulted() public {
-        require(bond.complete != false);
+        require(getComplete() == false);
         require(isBiddingTime() == false);
 
         uint _yearsPassed = (block.number - bond.creationDate + bond.bidTimeFrame)/2102400;
         if (
-            (_yearsPassed >= bond.duration && bond.complete == false) ||
+            (_yearsPassed >= bond.duration && getComplete() == false) ||
             (bond.amountRepaid < _yearsPassed * (bond.interestRate * 100) / bond.principal)
         ) {
             bond.defaulted = true;
@@ -178,5 +185,13 @@ contract Bond {
             // Do something in here
         }
 
+    }
+
+    function transferBond(address _newOwner, uint _bloomId) public {
+        require(msg.sender == bond.lenderAddress);
+
+        bond.lenderAddress = _newOwner;
+        bond.lender = _bloomId;
+        emit BondTransfered(_newOwner, _bloomId);
     }
 }
