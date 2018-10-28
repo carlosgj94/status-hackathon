@@ -1,7 +1,7 @@
 import contract from 'truffle-contract'
 import AuditorsRegistryContract from '../../build/contracts/AuditorsRegistry.json'
 
-const AuditorsRegistry = {
+const AuditorsRegistryHelper = {
 
   contract: null,
 
@@ -98,4 +98,4 @@ const AuditorsRegistry = {
   }
 }
 
-export default AuditorsRegistry
+export default AuditorsRegistryHelper

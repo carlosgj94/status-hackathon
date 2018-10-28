@@ -34,7 +34,9 @@
 
 <script>
 import LoanRegistry from '../helper/loanRegistryHelper'
-import BondHelper from '../helper/BondHelper'
+import AuditorsRegistryHelper from '../helper/auditorsRegistryHelper'
+
+import BondHelper from '../helper/bondHelper'
 import bond from './Bond.vue'
 
 export default {
@@ -53,6 +55,8 @@ export default {
       await BondHelper.initAddress(address)
       let actualBond = await BondHelper.getBond()
       console.log(actualBond)
+      let timeleft = actualBond[9].c[0] + actualBond[5].c[0]- BondHelper.currenBlockNumber
+      let granted = !actualBond[0].c[0]
       this.loans[arrayPosition] = {
         contract: address,
         lender: actualBond[0].c[0],
@@ -60,19 +64,19 @@ export default {
         borrowerAddress: actualBond[3],
         principal: actualBond[4].c[0], // in cents
         bidTimeFrame: actualBond[5].c[0],
-        timeLeft: 200300, // I DON'T HAVE THIS INFORMATION
-        color: '',
+        timeLeft: timeleft,
         amountRepaid: actualBond[6].c[0],
         complete: actualBond[8],
         defaulted: actualBond[7],
         creationDate: actualBond[9].c[0],
         duration: actualBond[10].c[0],
         interestRate: actualBond[11].c[0],
-        granted: false, // I DON'T HAVE THIS INFORMATION
+        granted: granted, 
         rating: actualBond[12].c[0],
         auditorAddress: actualBond[13],
         auditor: 'S&P'
       }
+      this.loans[arrayPosition].auditor = await AuditorsRegistryHelper.getAuditor(actualBond[13])
     }
   },
   beforeCreate: async function () {
