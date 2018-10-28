@@ -126,9 +126,11 @@ export default {
   },
   computed: {
     SPgrade () {
+
       // const gr= 20-this.info.grade
-      // console.log(this.info.grade)
+      console.log(this.info.grade)
       // return grades["S&PRating"][gr]
+      return "jj"
     }
     // colorLoan: function () {
     // console.log(this)

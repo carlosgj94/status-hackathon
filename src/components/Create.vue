@@ -135,7 +135,7 @@ export default {
         org_name: 'Dbonds',
         org_usage_policy_url: 'https://bloom.co/legal/terms',
         org_privacy_policy_url: 'https://bloom.co/legal/privacy',
-        types: ['email']
+        types: ['email','company']
       },
       options: {
         size: 300

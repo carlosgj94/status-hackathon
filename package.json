@@ -1,7 +1,7 @@
 {
-  "name": "eth-vue",
+  "name": "d-bonds",
   "version": "4.1.0",
-  "description": "A vue boilerplate for Ethereum dApps, built on Truffle 4. Uses vuex for state management, vuex-persist for local storage of app state, and vue-router for routing. Authentication functionalities are handled by Smart Contracts running on the Ethereum blockchain.",
+  "description": "D-bonds is a decentralized platform for issuing and trading unsecured corporate bonds.",
   "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",

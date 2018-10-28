@@ -9,6 +9,8 @@ const BondHelper = {
 
   address: null,
 
+  currentBlockNumber:null,
+
   init: function () {
     let self = this
 
@@ -24,6 +26,15 @@ const BondHelper = {
           console.log(error)
         } else {
           self.address = accounts
+          resolve()
+        }
+      })
+
+      window.web3.eth.getBlockNumber(function (error, bn) {
+        if (error) {
+          console.log(error)
+        } else {
+          self.currentBlockNumber = bn
           resolve()
         }
       })

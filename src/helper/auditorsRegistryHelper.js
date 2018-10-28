@@ -1,7 +1,7 @@
 import contract from 'truffle-contract'
 import AuditorsRegistryContract from '../../build/contracts/AuditorsRegistry.json'
 
-const AuditorsRegistry = {
+const AuditorsRegistryHelper = {
 
   contract: null,
 
@@ -24,7 +24,6 @@ const AuditorsRegistry = {
         // Getting the accounts
         window.web3.eth.getAccounts(function (error, accounts) {
           // Getting events
-          self.LoanCreated = self.instance.LoanCreated()
           if (error) {
             console.log(error)
           } else {
@@ -41,7 +40,6 @@ const AuditorsRegistry = {
   getAddress: function () {
     return this.instance.address
   },
-
 
   selfRegister: function (
     name) {
@@ -78,8 +76,8 @@ const AuditorsRegistry = {
   getAuditor: function (name) {
     let self = this
     return new Promise((resolve, reject) => {
-      self.instance.getAuditor.call(name).then((loansLength) => {
-        resolve(loansLength.c[0])
+      self.instance.getAuditor.call(name).then((auditor) => {
+        resolve(auditor)
       }).catch(err => {
         reject(err)
       })
@@ -98,4 +96,4 @@ const AuditorsRegistry = {
   }
 }
 
-export default AuditorsRegistry
+export default AuditorsRegistryHelper
