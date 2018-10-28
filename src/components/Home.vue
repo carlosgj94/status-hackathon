@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <div class='cross-background'></div>
       <b-container id="listBody"> 
         <b-row>
           <b-col></b-col>     
@@ -189,9 +190,9 @@
     /* height: 100vh; */
   }
   #listBody {
-    background-color: #000; 
+    background-color: rgba(0,0,0, 0.2); 
     height: 100%;
-    min-height: 90vh;
+    min-height: 100vh;
     /* radial-gradient(#17a2b8, #FFF, #FFF); */
     
   }
@@ -234,7 +235,15 @@
     }
   }
 
+.cross-background {
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: 
+ -webkit-linear-gradient(-45deg, rgba(250, 250, 250, 0.9) 45%, rgba(55, 230, 235, 1) 0%);
 
-
-
+z-index:-2;
+}
 </style>
