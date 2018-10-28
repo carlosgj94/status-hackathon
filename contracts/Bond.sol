@@ -49,7 +49,7 @@ contract Bond {
             bidTimeFrame: _bidTimeFrame,
             amountRepaid: 0,
             defaulted: false,
-            creationDate: now,
+            creationDate: block.number,
             duration: _duration,
             interestRate: _interestRate,
             granted: false,
@@ -61,6 +61,42 @@ contract Bond {
         LoanRegistry _loanRegistryContract = LoanRegistry(_loanRegistry);
 
         require(_loanRegistryContract.addLoan(_borrower, address(this)) == true);
+    }
+
+    function getBond() 
+    public view returns(
+        uint,
+        address,
+        uint,
+        address,
+        uint,
+        uint,
+        uint,
+        bool,
+        bool,
+        uint,
+        uint,
+        uint,
+        uint,
+        address
+    ) {
+        return 
+        (
+            bond.lender,
+            bond.lenderAddress,
+            bond.borrower,
+            bond.borrowerAddress,
+            bond.principal,
+            bond.bidTimeFrame,
+            bond.amountRepaid,
+            bond.defaulted,
+            getComplete(),
+            bond.creationDate,
+            bond.duration,
+            bond.interestRate,
+            bond.rating,
+            bond.auditor
+        );
     }
 
     function getLender() public view returns(uint) {
@@ -92,7 +128,7 @@ contract Bond {
     }
 
     function getComplete() public view returns(bool) {
-        if (bond.creationDate + bond.bidTimeFrame + bond.duration <= now &&
+        if (bond.creationDate + bond.bidTimeFrame + bond.duration <= block.number &&
             bond.amountRepaid >= getTotalToPay()) {
             return true;
         }
@@ -136,7 +172,7 @@ contract Bond {
     }
 
     function isBiddingTime() public view returns(bool) {
-        if (bond.creationDate + bond.bidTimeFrame < now)
+        if (bond.creationDate + bond.bidTimeFrame < block.number)
             return true;
         else
             return false;
@@ -144,7 +180,7 @@ contract Bond {
 
     function addBid(uint _interestRate, uint _bloomId) public returns(bool) {
         require(_interestRate < bond.interestRate);
-        require(bond.creationDate + bond.bidTimeFrame < now);
+        require(bond.creationDate + bond.bidTimeFrame < block.number);
         require(getComplete() == false);
         
         bond.borrower = _bloomId;
@@ -154,9 +190,9 @@ contract Bond {
     }
 
     function giveLoan() public payable {
-        require(bond.creationDate + bond.bidTimeFrame > now);
+        require(bond.creationDate + bond.bidTimeFrame > block.number);
         require(getComplete() == false);
-        // require(bond.creationDate + bond.bidTimeFrame > now);
+        // require(bond.creationDate + bond.bidTimeFrame > block.number);
 
         if (msg.value >= bond.principal || address(this).balance >= bond.principal) {
             bond.granted = true;
@@ -165,7 +201,7 @@ contract Bond {
 
     function payCouponRate() public payable {
         require(getComplete() == true);
-        require(bond.creationDate + bond.bidTimeFrame > now);
+        require(bond.creationDate + bond.bidTimeFrame > block.number);
         
         bond.amountRepaid += msg.value;
         bond.borrowerAddress.transfer(msg.value);
