@@ -7,8 +7,7 @@ module.exports = function (deployer) {
   return deployer.then(async () => {
     const loanRegistry = await LoanRegistry.deployed()
     // First Bond
-    // const firstBond = 
-    await deployer.deploy(
+    const firstBond = await deployer.deploy(
       Bond,
       11111,
       80808288,
@@ -18,9 +17,9 @@ module.exports = function (deployer) {
       loanRegistry.address,
       '0xc66bD3780C297Baa1d910923c8b47Dce4b284076'
     )
-    // firstBond.setGrade(14, {from:"0xc66bD3780C297Baa1d910923c8b47Dce4b284076"})
+    firstBond.setGrade(14, {from:"0xc66bD3780C297Baa1d910923c8b47Dce4b284076"})
     // Second Bond
-    await deployer.deploy(
+    const secondBond = await deployer.deploy(
       Bond,
       3499,
       15406852569,
@@ -30,8 +29,9 @@ module.exports = function (deployer) {
       loanRegistry.address,
       '0x3009Fb76bcA35C0675eC087f281B8b964b7ccbc5'
     )
+    secondBond.setGrade(18, {from:"0x3009Fb76bcA35C0675eC087f281B8b964b7ccbc5"})
     // Third Bond
-    await deployer.deploy(
+    thirdbond = await deployer.deploy(
       Bond,
       4890,
       97832193,
@@ -41,6 +41,7 @@ module.exports = function (deployer) {
       loanRegistry.address,
       '0x0fb12568c9cdeadfefb70ecb33d2ecbd4a6a6432'
     )
+    thirdbond.setGrade(7, {from:"0x0fb12568c9cdeadfefb70ecb33d2ecbd4a6a6432"})
     // fourth Bond
     await deployer.deploy(
       Bond,
