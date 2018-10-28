@@ -60,18 +60,32 @@
             <div slot="" class="text-right" align-v="end"><i>Days left to bit {{Math.floor(details.timeLeft/8640)}} </i></div>
             <div slot="" class="text-right" align-v="end">                  
                 <b-button  variant="info" size="sm" v-b-modal.infoModal >Information</b-button>
-                <b-button href="#" variant="danger" size="sm" :disabled="!details.timeLeft">Bid</b-button>
+                <b-button variant="danger" size="sm" @click="showModal" :disabled="!details.timeLeft">Bid</b-button>
                 <b-button href="#" variant="warning" size="sm" disabled>Transfert</b-button>
             </div>
           </b-col>
         </b-row>
 
+<b-modal ref="myModalRef" hide-footer title="Bid for a bond">
+      <div class="d-block text-center">
+      <!-- Principal -->
+      <b-form-group id="principal"
+                    label="Principal:"
+                    label-for="titleInput"
+                    style="margin-bottom: 0;">
+        <b-form-input id="principalInput"
+                      type="text"
+                      maxlength="60"
+                      placeholder="The principal of the bond"
+                      v-model="bondForm.principal"
+                      required/>
+      </b-form-group>
+      </div>
+      <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
+    </b-modal>
 
 
       </b-card>
-      <!-- <b-modal id="infoModal">
-        Additionnal INFO
-      </b-modal> -->
 </template>
 
 <script>
@@ -80,7 +94,14 @@ import grades from '../helper/grades'
 
 export default {
   name: 'bond',
-  methods: {},
+  methods: {
+    showModal () {
+      this.$refs.myModalRef.show()
+    },
+    hideModal () {
+      this.$refs.myModalRef.hide()
+    }
+  },
   beforeCreate: async function () {
     await bond.init()
     // await bond.initAddress(this.addr)
@@ -94,7 +115,8 @@ export default {
   mounted: function () {
   },
   props: ['addr', 'details'],
-  components: {},
+  components: {
+  },
   computed: {
     SPgrade () {
       // const gr= 20-this.info.grade

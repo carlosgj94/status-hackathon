@@ -29,6 +29,7 @@
           </b-pagination> -->
         </b-row>
       </b-container>
+      <BidModal/>
     </div>
 </template>
 
@@ -53,7 +54,6 @@ export default {
       await BondHelper.initAddress(address)
       let actualBond = await BondHelper.getBond()
       console.log(actualBond)
-      console.log(actualBond[2].c[0])
       this.loans[arrayPosition] = {
         contract: address,
         lender: actualBond[0].c[0],
