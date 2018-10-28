@@ -69,19 +69,22 @@
 <b-modal ref="myModalRef" hide-footer title="Bid for a bond">
       <div class="d-block text-center">
       <!-- Principal -->
-      <b-form-group id="principal"
-                    label="Principal:"
-                    label-for="titleInput"
+      <b-form-group id="interestRate"
+                    label="Interest Rate:"
+                    label-for="interestRateInput"
                     style="margin-bottom: 0;">
-        <b-form-input id="principalInput"
+        <b-form-input id="interestRateInput"
                       type="text"
                       maxlength="60"
-                      placeholder="The principal of the bond"
-                      v-model="bondForm.principal"
+                      placeholder="The interest rate of the bond"
+                      v-model="interestRate"
                       required/>
+          <p>Current interest: {{details.interestRate/100}}%</p>
       </b-form-group>
+
+      <b-btn class="mt-4" variant="danger" @click="proposeBid">Propose bid</b-btn>
+      <b-btn class="mt-4" variant="outline-danger" @click="hideModal">Close</b-btn>
       </div>
-      <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
     </b-modal>
 
 
@@ -100,6 +103,10 @@ export default {
     },
     hideModal () {
       this.$refs.myModalRef.hide()
+    },
+    async proposeBid () {
+      await bond.initAddress(this.details.contract)
+      await bond.addBid(this.interestRate, 34033) // Right now the bloom id is fixed since we have done this already in other part
     }
   },
   beforeCreate: async function () {
@@ -140,8 +147,8 @@ export default {
   },
   data () {
     return {
-      infos: this.details
-
+      infos: this.details,
+      interestRate: 0
     }
   }
 }

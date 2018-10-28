@@ -180,7 +180,7 @@ contract Bond {
 
     function addBid(uint _interestRate, uint _bloomId) public returns(bool) {
         require(_interestRate < bond.interestRate);
-        require(bond.creationDate + bond.bidTimeFrame < block.number);
+        // require(bond.creationDate + bond.bidTimeFrame < block.number);
         require(getComplete() == false);
         
         bond.borrower = _bloomId;

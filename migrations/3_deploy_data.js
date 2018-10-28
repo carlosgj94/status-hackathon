@@ -15,7 +15,7 @@ module.exports = function (deployer) {
       2,
       10,
       loanRegistry.address,
-      '0x7Baa1d910923c8b47Dce4b284076c66bD3780C29'
+      '0xc66bD3780C297Baa1d910923c8b47Dce4b284076'
     )
     // Second Bond
     await deployer.deploy(

@@ -29,7 +29,6 @@
           </b-pagination> -->
         </b-row>
       </b-container>
-      <BidModal/>
     </div>
 </template>
 
@@ -42,18 +41,22 @@ export default {
   name: 'listing',
   methods: {
     async getBondsData () {
+      this.loans = []
       for (var loan in this.loansAddresses) {
         if (this.loansAddresses[loan] !== '0x0000000000000000000000000000000000000000') {
           console.log(this.loansAddresses[loan])
           await this.getSingleBond(this.loansAddresses[loan], loan)
         }
       }
+      this.loading = false
     },
 
     async getSingleBond (address, arrayPosition) {
       await BondHelper.initAddress(address)
       let actualBond = await BondHelper.getBond()
       console.log(actualBond)
+      console.log(arrayPosition)
+
       this.loans[arrayPosition] = {
         contract: address,
         lender: actualBond[0].c[0],
@@ -76,7 +79,7 @@ export default {
       }
     }
   },
-  beforeCreate: async function () {
+  created: async function () {
     this.error = this.loansAddresses = null
     await LoanRegistry.init()
     await BondHelper.init()
@@ -86,30 +89,6 @@ export default {
     await this.getBondsData()
   },
   beforeMount: function () {
-    this.loans[0] = {
-      contract: '0x59d4d9c24cd9517724bce24666bde8aeb27b7d54',
-      lender: null,
-      borrower: 7890,
-      borrowerAddress: '0xc66bD3780C297Baa1d910923c8b47Dce4b284076',
-      principal: 80808288, // in cents
-      bidTimeFrame: 88855888,
-      timeLeft: 200300,
-      color: '',
-      amountRepaid: 0,
-      complete: false,
-      defaulted: false,
-      creationDate: 1540685256529,
-      duration: 2,
-      interestRate: 434,
-      granted: false,
-      rating: 14,
-      auditor: 'S&P'
-    }
-
-    let self = this
-    setTimeout(function () {
-      self.loading = false
-    }, 2000)
   },
   mounted: function () {},
   components: {
