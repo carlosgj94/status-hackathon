@@ -82,7 +82,9 @@
 </template>
 
 <script>
-import { createRequestQRCode, removeRequestQRCode, RequestData } from '@bloomprotocol/share-kit'
+import { createRequestQRCode, removeRequestQRCode } from '@bloomprotocol/share-kit'
+import BondHelper from '../helper/bondHelper'
+import LoanRegistry from '../helper/loanRegistryHelper'
 
 export default {
   name: 'create',
@@ -97,15 +99,26 @@ export default {
     },
     async getRequest () {
       this.$http.get('https://dbond-server-ekfxmcuhks.now.sh/lastRequest').then(response => {
-        console.log(response.body.bloom_id)
+        this.borrowerId = response.body.bloom_id
         // Close the QR
         removeRequestQRCode(this.requestQRCodeId)
         // Make the metamask transaction
+        BondHelper.deploy(
+          this.borrowerId,
+          this.principal,
+          this.bidTimeframe,
+          this.maturity,
+          this.interestRate,
+          LoanRegistry.getAddress(),
+          this.auditor
+        )
       })
     }
   },
-  created: function () {
+  created: async function () {
     // this.getRequest()
+    await BondHelper.init()
+    await LoanRegistry.init()
   },
   components: {
   },

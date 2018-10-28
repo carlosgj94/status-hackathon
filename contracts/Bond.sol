@@ -29,26 +29,23 @@ contract Bond {
     BondStruct public bond;
   
     constructor (
-        uint _lender,
+        uint _borrower,
         uint _principal,
         uint _bidTimeFrame,
-        uint _amountRepaid,
-        bool _complete,
-        bool _defaulted,
         uint _duration,
         uint _interestRate,
         address _loanRegistry,
         address _auditor
     ) public {
         BondStruct memory _bond = BondStruct({
-            lender: _lender,
-            borrower: 0,
+            lender: 0,
+            borrower: _borrower,
             borrowerAddress: address(0),
             principal: _principal,
             bidTimeFrame: _bidTimeFrame,
-            amountRepaid: _amountRepaid,
-            complete: _complete,
-            defaulted: _defaulted,
+            amountRepaid: 0,
+            complete: false,
+            defaulted: false,
             creationDate: now,
             duration: _duration,
             interestRate: _interestRate,
@@ -60,7 +57,7 @@ contract Bond {
 
         LoanRegistry _loanRegistryContract = LoanRegistry(_loanRegistry);
 
-        require(_loanRegistryContract.addLoan(_lender, address(this)) == true);
+        require(_loanRegistryContract.addLoan(_borrower, address(this)) == true);
     }
 
     function getLender() public view returns(uint) {
