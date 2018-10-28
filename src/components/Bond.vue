@@ -61,7 +61,7 @@
             <div slot="" class="text-right" align-v="end">                  
                 <b-button  variant="info" size="sm" v-b-modal.infoModal >Information</b-button>
                 <b-button href="#" variant="danger" size="sm" :disabled="!details.timeLeft">Bid</b-button>
-                <b-button href="#" variant="warning" size="sm" disabled>Transfert</b-button>
+                <b-button href="#" variant="warning" size="sm" disabled>Transfer</b-button>
             </div>
           </b-col>
         </b-row>
@@ -97,9 +97,11 @@ export default {
   components: {},
   computed: {
     SPgrade () {
+
       // const gr= 20-this.info.grade
-      // console.log(this.info.grade)
+      console.log(this.info.grade)
       // return grades["S&PRating"][gr]
+      return "jj"
     }
     // colorLoan: function () {
     // console.log(this)
