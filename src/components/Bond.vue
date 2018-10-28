@@ -8,7 +8,8 @@
               <p class="card-text">
                 <b-progress :value="details.rating" :max="20" variant="secondary"></b-progress>
                 <br>
-                  <button type="button" class="btn btn-secondary btn-sm">{{ details.auditor }}  </button>
+                  <!-- {{ SPgrade }}  -->
+                   <button type="button" class="btn btn-secondary btn-sm">{{ details.auditor }}  </button>
               </p>
             </b-card>
 
@@ -19,7 +20,7 @@
             <br><br>
             <div slot="" class="text-right" align-v="end"><i>Days left to bit {{Math.floor(details.timeLeft/8640)}} </i></div>
             <div slot="" class="text-right" align-v="end">                  
-                <b-button href="#" variant="info" size="sm" >Information</b-button>
+                <b-button  variant="info" size="sm" v-b-modal.infoModal >Information</b-button>
                 <b-button href="#" variant="danger" size="sm" :disabled="!details.timeLeft">Bid</b-button>
                 <b-button href="#" variant="warning" size="sm" disabled>Transfert</b-button>
             </div>
@@ -29,6 +30,9 @@
 
 
       </b-card>
+      <!-- <b-modal id="infoModal">
+        Additionnal INFO
+      </b-modal> -->
 </template>
 
 <script>
@@ -50,10 +54,18 @@ export default {
   beforeMount: function() {
   
   },
-  mounted: function() {},
+  mounted: function() {
+  },
   props: ['addr','details'],
   components: {},
   computed: {
+    SPgrade () {
+      // const gr= 20-this.info.grade
+      // console.log(this.info.grade)
+      // return grades["S&PRating"][gr]
+    }
+
+    
     // colorLoan: function () {
     // console.log(this)
     // const now = + new Date()
@@ -71,6 +83,7 @@ export default {
   },
   data() {
     return {
+      infos:this.details
 
     };
   }

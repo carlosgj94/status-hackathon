@@ -133,7 +133,7 @@ export default {
     let self = this;
     setTimeout(function() {
       self.loading = false;
-    }, 3000);
+    }, 2000);
 
 
   },
