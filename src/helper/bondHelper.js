@@ -18,18 +18,41 @@ const BondHelper = {
 
       // instantiate by address
       // var contractInstance = MyContract.at(DEPLOYED_ADDRESS)
-      self.contract.deployed().then(instance => {
-        self.instance = instance
-
         // Getting the accounts
-        window.web3.eth.getAccounts(function (error, accounts) {
-          if (error) {
-            console.log(error)
-          } else {
-            self.address = accounts
-            resolve()
-          }
-        })
+      window.web3.eth.getAccounts(function (error, accounts) {
+        if (error) {
+          console.log(error)
+        } else {
+          self.address = accounts
+          resolve()
+        }
+      })
+    })
+  },
+
+  deploy: function (
+    borrower,
+    principal,
+    bidTimeframe,
+    duration,
+    interestRate,
+    loanRegistry,
+    auditor
+  ) {
+    let self = this
+
+    return new Promise(function (resolve, reject) {
+      self.contract.new(
+        borrower,
+        principal,
+        bidTimeframe,
+        duration,
+        interestRate,
+        loanRegistry,
+        auditor,
+        {from: self.address[0]}
+      ).then(instance => {
+        self.instance = instance
       }).catch(err => {
         reject(err)
       })

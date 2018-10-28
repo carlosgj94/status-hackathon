@@ -22,6 +22,7 @@ const LoanRegistry = {
       // var contractInstance = MyContract.at(DEPLOYED_ADDRESS)
       self.contract.deployed().then(instance => {
         self.instance = instance
+        console.log(instance)
 
         // Getting the accounts
         window.web3.eth.getAccounts(function (error, accounts) {
@@ -38,6 +39,10 @@ const LoanRegistry = {
         reject(err)
       })
     })
+  },
+
+  getAddress: function () {
+    return this.instance.address
   },
 
   LoanCreatedEvent: function () {
