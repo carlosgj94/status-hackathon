@@ -5,14 +5,16 @@ pragma solidity ^0.4.24;
  */
 
 /** @title Auditors Registry. */
-/** @dev Allows to self register as an auditor, and validators to consolidate your position */
+/** @dev Allows to self register as an auditor, with a stake, and validators to consolidate your position */
 
 contract AuditorsRegistry {
     mapping(address => string) public auditors;
     mapping(address => address[]) public validations;
 
-    function selfRegistration(string _name) public {
-        auditors[msg.sender]= _name;
+    function selfRegistration(string _name) public payable {
+      //primitive barrier to entry, a stake
+      require(msg.value == 1 ether);
+      auditors[msg.sender]= _name;
     }
 
     function getAuditor(address _addr) public view returns(string) {

@@ -9,6 +9,7 @@ import "./LoanRegistry.sol";
 
 
 contract Bond {
+    uint BLOCKSPERYEAR = 2138648;
 
     event BondTransfered(address newOwner, uint bloomId);
 
@@ -21,13 +22,12 @@ contract Bond {
         uint bidTimeFrame;
         uint amountRepaid;
         bool defaulted;
-        uint creationDate;
+        uint creationDate; // in block height
         uint duration; // The amount of years
         uint interestRate;
         bool granted;
-        uint rating;
-        address auditor;
         uint grade;
+        address auditor;
     }
 
     BondStruct public bond;
@@ -54,9 +54,8 @@ contract Bond {
             duration: _duration,
             interestRate: _interestRate,
             granted: false,
-            rating: 0,
-            auditor: _auditor,
-            grade: 0
+            grade: 0,
+            auditor: _auditor
         });
         bond = _bond;
 
@@ -96,7 +95,7 @@ contract Bond {
             bond.creationDate,
             bond.duration,
             bond.interestRate,
-            bond.rating,
+            bond.grade,
             bond.auditor
         );
     }
@@ -130,7 +129,7 @@ contract Bond {
     }
 
     function getComplete() public view returns(bool) {
-        if (bond.creationDate + bond.bidTimeFrame + bond.duration <= block.number &&
+        if (bond.creationDate + bond.bidTimeFrame + bond.duration * BLOCKSPERYEAR <= block.number &&
             bond.amountRepaid >= getTotalToPay()) {
             return true;
         }
@@ -159,7 +158,7 @@ contract Bond {
     }
 
     function getRating() public view returns(uint) {
-        return bond.rating;
+        return bond.grade;
     }
 
     function getAuditor() public view returns(address) {
@@ -175,7 +174,7 @@ contract Bond {
         require(msg.sender == bond.auditor);
         require(rate < 32);
 
-        bond.rating = rate;
+        bond.grade = rate;
     }
 
     function isBiddingTime() public view returns(bool) {
@@ -193,7 +192,7 @@ contract Bond {
 
     function addBid(uint _interestRate, uint _bloomId) public returns(bool) {
         require(_interestRate < bond.interestRate);
-        require(bond.creationDate + bond.bidTimeFrame < block.number);
+        require(bond.creationDate + bond.bidTimeFrame > block.number);
         require(getComplete() == false);
         
         bond.borrower = _bloomId;
@@ -203,12 +202,14 @@ contract Bond {
     }
 
     function giveLoan() public payable {
-        require(bond.creationDate + bond.bidTimeFrame > block.number);
+        require(bond.creationDate + bond.bidTimeFrame < block.number);
         require(getComplete() == false);
-        // require(bond.creationDate + bond.bidTimeFrame > block.number);
+        // One week to give the loan timeframe
+        require(bond.creationDate + bond.bidTimeFrame + 41000 > block.number);
 
         if (msg.value >= bond.principal || address(this).balance >= bond.principal) {
             bond.granted = true;
+            bond.borrowerAddress.transfer(msg.value);
         }
     }
 
@@ -224,7 +225,7 @@ contract Bond {
         require(getComplete() == false);
         require(isBiddingTime() == false);
 
-        uint _yearsPassed = (block.number - bond.creationDate + bond.bidTimeFrame)/2102400;
+        uint _yearsPassed = (block.number - bond.creationDate + bond.bidTimeFrame)/BLOCKSPERYEAR;
         if (
             (_yearsPassed >= bond.duration && getComplete() == false) ||
             (bond.amountRepaid < _yearsPassed * (bond.interestRate * 100) / bond.principal)
