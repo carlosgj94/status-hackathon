@@ -23,6 +23,7 @@
     "solidity-sha3": "^0.4.1",
     "truffle-hdwallet-provider": "0.0.3",
     "vue": "^2.5.3",
+    "vue-resource": "^1.5.1",
     "vue-router": "^2.8.1",
     "vuex": "^2.5.0",
     "vuex-persist": "^0.1.8",

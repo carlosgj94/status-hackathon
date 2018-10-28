@@ -29,7 +29,6 @@ export default {
 
   .qr {
     background-color: #000;
-    width: 500px;
   }
 </style>
 
