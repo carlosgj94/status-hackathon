@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
+import Listing from '@/components/Listing'
 import Create from '@/components/Create'
 
 Vue.use(Router)
@@ -11,13 +11,13 @@ export default new Router({
       mode: 'history',
       path: '/',
       name: 'Root',
-      component: Home
+      component: Listing
     },
     {
       mode: 'history',
       path: '/home',
       name: 'Home',
-      component: Home
+      component: Listing
     },
     {
       mode: 'history',
