@@ -5,28 +5,43 @@ pragma solidity ^0.4.24;
  */
 
 /** @title Auditors Registry. */
-/** @dev Allows to self register as an auditor, with a stake, and validators to consolidate your position */
+/** @dev Allows to self register as an auditor, with a stake, and users to validate to consolidate your position */
 
 contract AuditorsRegistry {
-    mapping(address => string) public auditors;
-    mapping(address => address[]) public validations;
+    struct Auditor {
+      string name;
+      address[] validations;
+      bool unlisted;
+      uint reputation;
+    }
+
+    mapping(address => Auditor) public auditors;
 
     function selfRegistration(string _name) public payable {
       //primitive barrier to entry, a stake
       require(msg.value == 1 ether);
-      auditors[msg.sender]= _name;
+      auditors[msg.sender].name= _name;
+    }
+
+    function selfUnlisting() public  {
+      //primitive barrier to entry, a stake
+      require(!auditors[msg.sender].unlisted );
+      auditors[msg.sender].unlisted= true;
+      msg.sender.transfer(1 ether);
     }
 
     function getAuditor(address _addr) public view returns(string) {
-        return auditors[_addr];
+        return auditors[_addr].name;
     }
 
     function validateAuditor(address _addr) public {
-      validations[_addr].push(msg.sender);
+      auditors[_addr].validations.push(msg.sender);
+      //if the validator is itself an auditor it adds some of its reputation
+      auditors[_addr].reputation = 1 + auditors[msg.sender].reputation/2;
     }
 
     function getValidator(address _addr, uint _index) public view returns(address) {
-        return validations[_addr][_index];
+        return auditors[_addr].validations[_index];
     }
 
 }

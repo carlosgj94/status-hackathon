@@ -61,7 +61,7 @@
             <div slot="" class="text-right" align-v="end">                  
                 <b-button  variant="info" size="sm" v-b-modal.infoModal >Information</b-button>
                 <b-button variant="danger" size="sm" @click="showModal" :disabled="!details.timeLeft">Bid</b-button>
-                <b-button href="#" variant="warning" size="sm" disabled>Transfert</b-button>
+                <b-button href="#" variant="warning" size="sm" disabled>Transfer</b-button>
             </div>
           </b-col>
         </b-row>
