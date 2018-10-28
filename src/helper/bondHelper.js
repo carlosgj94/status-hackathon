@@ -9,7 +9,7 @@ const BondHelper = {
 
   address: null,
 
-  currentBlockNumber:null,
+  currentBlockNumber: null,
 
   init: function () {
     let self = this
@@ -29,13 +29,20 @@ const BondHelper = {
           resolve()
         }
       })
+    })
+  },
 
-      window.web3.eth.getBlockNumber(function (error, bn) {
+  getCurrentBlockNumber: function () {
+    let self = this
+    return new Promise(function (resolve, reject) {
+      // Getting the accounts
+      window.web3.eth.getBlockNumber(function (error, number) {
         if (error) {
-          console.log(error)
+          // console.log(error)
+          resolve(null)
         } else {
-          self.currentBlockNumber = bn
-          resolve()
+          self.currentBlockNumber = number
+          resolve(number)
         }
       })
     })

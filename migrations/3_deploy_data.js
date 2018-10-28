@@ -9,9 +9,9 @@ module.exports = function (deployer) {
     // First Bond
     await deployer.deploy(
       Bond,
-      7890,
+      11111,
       80808288,
-      88855888,
+      5,
       2,
       10,
       loanRegistry.address,
@@ -20,9 +20,9 @@ module.exports = function (deployer) {
     // Second Bond
     await deployer.deploy(
       Bond,
-      7890,
+      3499,
       1540685256509,
-      88855888,
+      888588,
       5,
       3,
       loanRegistry.address,
@@ -37,7 +37,7 @@ module.exports = function (deployer) {
       2,
       10,
       loanRegistry.address,
-      '0xD48F0C3B257584181e144B51F8D55ac7cFD01d50'
+      '0xc66bD3780C297Baa1d910923c8b47Dce4b284076'
     )
     // fourth Bond
     await deployer.deploy(
@@ -48,7 +48,7 @@ module.exports = function (deployer) {
       2,
       10,
       loanRegistry.address,
-      '0xb284076c66bD3780C297Baa1d910923c8b47Dce4'
+      '0xc66bD3780C297Baa1d910923c8b47Dce4b284076'
     )
     const auditorsRegistry = await AuditorsRegistry.deployed()
     auditorsRegistry.selfRegistration("S&P", { "from": "0x7Baa1d910923c8b47Dce4b284076c66bD3780C29" })
