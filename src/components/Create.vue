@@ -2,7 +2,13 @@
 <div class="justify-content-md-center litle-margin">
   <div class='cross-background'></div>
     <!--Form-->
-    <div id="my-container" class=""></div>
+    <b-container>
+
+    <b-row>
+
+      <b-col cols="8">
+
+ 
     <b-form @submit="onSubmit">
       <h2 style="margin-bottom: 2%;"> Create a bond </h2>
 
@@ -80,6 +86,16 @@
       <b-button size='lg' type="submit" variant="primary">Submit</b-button>
 
     </b-form>
+    </b-col>
+    <b-col cols="2">
+
+    </b-col>
+    <b-col cols="2">
+       <div id="my-container" class="" style="margin-top:7rem;"></div>
+
+    </b-col>
+    </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -97,7 +113,7 @@ export default {
     onSubmit () {
       let self = this
       this.getQRCode()
-      setTimeout(function () { self.getRequest() }, 5000)
+      setTimeout(function () { self.getRequest() }, 1000000)
     },
     async getRequest () {
       this.$http.get('https://dbond-server-ekfxmcuhks.now.sh/lastRequest').then(response => {
