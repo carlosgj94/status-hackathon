@@ -27,6 +27,7 @@ contract Bond {
         bool granted;
         uint rating;
         address auditor;
+        uint grade;
     }
 
     BondStruct public bond;
@@ -54,7 +55,8 @@ contract Bond {
             interestRate: _interestRate,
             granted: false,
             rating: 0,
-            auditor: _auditor
+            auditor: _auditor,
+            grade: 0
         });
         bond = _bond;
 
@@ -164,6 +166,11 @@ contract Bond {
         return bond.auditor;
     }
 
+
+    function getGrade() public view returns(uint) {
+        return bond.grade;
+    }
+
     function setRating(uint rate) public {
         require(msg.sender == bond.auditor);
         require(rate < 32);
@@ -176,6 +183,12 @@ contract Bond {
             return true;
         else
             return false;
+    }
+
+    function setGrade(uint _grade) public {
+        require(msg.sender == bond.auditor);
+        require(_grade>=0 && _grade<21);
+        bond.grade=_grade;
     }
 
     function addBid(uint _interestRate, uint _bloomId) public returns(bool) {
