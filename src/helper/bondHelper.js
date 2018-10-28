@@ -30,6 +30,14 @@ const BondHelper = {
     })
   },
 
+  initAddress: function (address) {
+    let self = this
+
+    return new Promise(function (resolve, reject) {
+      self.instance = self.contract.at(address)
+    })
+  },
+
   deploy: function (
     borrower,
     principal,
