@@ -56,8 +56,7 @@ export default {
     async getSingleBond (address, arrayPosition) {
       await BondHelper.initAddress(address)
       let actualBond = await BondHelper.getBond()
-      // console.log(actualBond)
-      let timeleft = actualBond[9].c[0] + actualBond[5].c[0]- BondHelper.currenBlockNumber
+      let timeleft = actualBond[9].c[0] + actualBond[5].c[0] - await BondHelper.getCurrentBlockNumber()
       let granted = !actualBond[0].c[0]
       // console.log(actualBond[2].c[0])
       this.loans[arrayPosition] = {
