@@ -36,27 +36,25 @@
 </template>
 
 <script>
-import bond from "../helper/bondHelper";
-import grades from "../helper/grades";
+import bond from '../helper/bondHelper'
+import grades from '../helper/grades'
 
 export default {
-  name: "bond",
+  name: 'bond',
   methods: {},
-  beforeCreate: async function() {
+  beforeCreate: async function () {
     await bond.init()
     // await bond.initAddress(this.addr)
-       
 
     // this.detailssLength = await LoanRegistry.getLoansLength()
     // this.loansAddresses = await LoanRegistry.getLoans(0)
     // console.log(this.loansAddresses)
   },
-  beforeMount: function() {
-  
+  beforeMount: function () {
   },
-  mounted: function() {
+  mounted: function () {
   },
-  props: ['addr','details'],
+  props: ['addr', 'details'],
   components: {},
   computed: {
     SPgrade () {
@@ -64,8 +62,6 @@ export default {
       // console.log(this.info.grade)
       // return grades["S&PRating"][gr]
     }
-
-    
     // colorLoan: function () {
     // console.log(this)
     // const now = + new Date()
@@ -81,13 +77,13 @@ export default {
     // }
     // }
   },
-  data() {
+  data () {
     return {
-      infos:this.details
+      infos: this.details
 
-    };
+    }
   }
-};
+}
 </script>
 
 <style scoped>

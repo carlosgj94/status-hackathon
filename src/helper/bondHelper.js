@@ -30,12 +30,8 @@ const BondHelper = {
     })
   },
 
-  initAddress: function (address) {
-    let self = this
-
-    return new Promise(function (resolve, reject) {
-      self.instance = self.contract.at(address)
-    })
+  initAddress: async function (address) {
+    this.instance = await this.contract.at(address)
   },
 
   deploy: function (
@@ -61,6 +57,18 @@ const BondHelper = {
         {from: self.address[0]}
       ).then(instance => {
         self.instance = instance
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  getBond: function () {
+    let self = this
+
+    return new Promise((resolve, reject) => {
+      self.instance.getBond.call().then((bond) => {
+        resolve(bond)
       }).catch(err => {
         reject(err)
       })

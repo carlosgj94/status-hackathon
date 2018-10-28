@@ -34,21 +34,57 @@
 
 <script>
 import LoanRegistry from '../helper/loanRegistryHelper'
+import BondHelper from '../helper/BondHelper'
 import bond from './Bond.vue'
 
 export default {
   name: 'listing',
-  methods: {},
+  methods: {
+    async getBondsData () {
+      for (var loan in this.loansAddresses) {
+        if (this.loansAddresses[loan] !== '0x0000000000000000000000000000000000000000') {
+          console.log(this.loansAddresses[loan])
+          await this.getSingleBond(this.loansAddresses[loan], loan)
+        }
+      }
+    },
+
+    async getSingleBond (address, arrayPosition) {
+      await BondHelper.initAddress(address)
+      let actualBond = await BondHelper.getBond()
+      console.log(actualBond)
+      this.loans[arrayPosition] = {
+        contract: address,
+        lender: actualBond[0].c[0],
+        borrower: actualBond[2].c[0],
+        borrowerAddress: actualBond[3],
+        principal: actualBond[4].c[0], // in cents
+        bidTimeFrame: actualBond[5].c[0],
+        timeLeft: 200300, // I DON'T HAVE THIS INFORMATION
+        color: '',
+        amountRepaid: actualBond[6].c[0],
+        complete: actualBond[8],
+        defaulted: actualBond[7],
+        creationDate: actualBond[9].c[0],
+        duration: actualBond[10].c[0],
+        interestRate: actualBond[11].c[0],
+        granted: false, // I DON'T HAVE THIS INFORMATION
+        rating: actualBond[12].c[0],
+        auditorAddress: actualBond[13],
+        auditor: 'S&P'
+      }
+    }
+  },
   beforeCreate: async function () {
     this.error = this.loansAddresses = null
     await LoanRegistry.init()
+    await BondHelper.init()
 
     // this.loansLength = await LoanRegistry.getLoansLength()
     this.loansAddresses = await LoanRegistry.getLoans(0)
-    // console.log(this.loansAddresses)
+    await this.getBondsData()
   },
   beforeMount: function () {
-    this.loans = [] // weirdly useful
     this.loans[0] = {
       contract: '0x59d4d9c24cd9517724bce24666bde8aeb27b7d54',
       lender: null,
@@ -67,66 +103,6 @@ export default {
       granted: false,
       rating: 14,
       auditor: 'S&P'
-    }
-    this.loans[1] = {
-      contract: '0x475e843c9771e287b65b7189b95d7261edcee1c8',
-      lender: null,
-      borrower: 38523,
-      borrowerAddress: '0x8D55ac7cFD01d50D48F0C3B257584181e144B51F',
-      principal: 3432,
-      bidTimeFrame: 55534332,
-      amountRepaid: 0,
-      timeLeft: 20300,
-      color: '',
-      complete: false,
-      defaulted: false,
-      creationDate: 1540685256509,
-      duration: 4,
-      interestRate: 234,
-      granted: false,
-      rating: 20,
-      auditor: 'His Grandma'
-    }
-
-    this.loans[2] = {
-      contract: '0x89b95d7261edcee1c8475e843c9771e287b65b71',
-      lender: 898983773,
-      borrower: 38523,
-      borrowerAddress: '0xD48F0C3B257584181e144B51F8D55ac7cFD01d50',
-      principal: 735433,
-      bidTimeFrame: 34234,
-      amountRepaid: 0,
-      timeLeft: 0,
-      color: 'secondary',
-      complete: false,
-      defaulted: false,
-      creationDate: 1540685255509,
-      duration: 4,
-      interestRate: 234,
-      granted: false,
-      rating: 12,
-      auditor: 'Registered Auditors'
-    }
-
-    this.loans[3] = {
-      contract: '0xb65b7189b95d7261edcee1c8475e843c9771e287',
-      lender: null,
-      borrower: 38383883,
-      borrowerAddress: '0xD48F0C3B257584181e144B51F8D55ac7cFD01d50',
-      principal: 3432,
-      bidTimeFrame: 2,
-      amountRepaid: 0,
-      timeLeft: 0,
-
-      color: 'danger',
-      complete: false,
-      defaulted: false,
-      creationDate: 1540685236509,
-      duration: 4,
-      interestRate: 234,
-      granted: false,
-      rating: 5,
-      auditor: 'Some Auditor'
     }
 
     let self = this
