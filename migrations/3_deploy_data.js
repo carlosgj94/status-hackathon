@@ -21,7 +21,7 @@ module.exports = function (deployer) {
     await deployer.deploy(
       Bond,
       3499,
-      1540685256509,
+      15406852569,
       888588,
       5,
       3,
@@ -31,9 +31,9 @@ module.exports = function (deployer) {
     // Third Bond
     await deployer.deploy(
       Bond,
-      7890,
-      80808288,
-      88855888,
+      4890,
+      97832193,
+      97832193,
       2,
       10,
       loanRegistry.address,
@@ -42,9 +42,9 @@ module.exports = function (deployer) {
     // fourth Bond
     await deployer.deploy(
       Bond,
-      7890,
-      80808288,
-      88855888,
+      6890,
+      8808288,
+      8855888,
       2,
       10,
       loanRegistry.address,

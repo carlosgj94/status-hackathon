@@ -129,7 +129,7 @@ contract Bond {
     }
 
     function getComplete() public view returns(bool) {
-        if (bond.creationDate + bond.bidTimeFrame + bond.duration * BLOCKSPERYEAR <= block.number &&
+        if (bond.creationDate + bond.bidTimeFrame + bond.duration * 2138648 <= block.number &&
             bond.amountRepaid >= getTotalToPay()) {
             return true;
         }
@@ -225,7 +225,7 @@ contract Bond {
         require(getComplete() == false);
         require(isBiddingTime() == false);
 
-        uint _yearsPassed = (block.number - bond.creationDate + bond.bidTimeFrame)/BLOCKSPERYEAR;
+        uint _yearsPassed = (block.number - bond.creationDate + bond.bidTimeFrame)/2138648;
         if (
             (_yearsPassed >= bond.duration && getComplete() == false) ||
             (bond.amountRepaid < _yearsPassed * (bond.interestRate * 100) / bond.principal)
