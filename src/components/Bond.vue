@@ -60,18 +60,35 @@
             <div slot="" class="text-right" align-v="end"><i>Days left to bit {{Math.floor(details.timeLeft/8640)}} </i></div>
             <div slot="" class="text-right" align-v="end">                  
                 <b-button  variant="info" size="sm" v-b-modal.infoModal >Information</b-button>
-                <b-button href="#" variant="danger" size="sm" :disabled="!details.timeLeft">Bid</b-button>
-                <b-button href="#" variant="warning" size="sm" disabled>Transfer</b-button>
+                <b-button variant="danger" size="sm" @click="showModal" :disabled="!details.timeLeft">Bid</b-button>
+                <b-button href="#" variant="warning" size="sm" disabled>Transfert</b-button>
             </div>
           </b-col>
         </b-row>
 
+<b-modal ref="myModalRef" hide-footer title="Bid for a bond">
+      <div class="d-block text-center">
+      <!-- Principal -->
+      <b-form-group id="interestRate"
+                    label="Interest Rate:"
+                    label-for="interestRateInput"
+                    style="margin-bottom: 0;">
+        <b-form-input id="interestRateInput"
+                      type="text"
+                      maxlength="60"
+                      placeholder="The interest rate of the bond"
+                      v-model="interestRate"
+                      required/>
+          <p>Current interest: {{details.interestRate/100}}%</p>
+      </b-form-group>
+
+      <b-btn class="mt-4" variant="danger" @click="proposeBid">Propose bid</b-btn>
+      <b-btn class="mt-4" variant="outline-danger" @click="hideModal">Close</b-btn>
+      </div>
+    </b-modal>
 
 
       </b-card>
-      <!-- <b-modal id="infoModal">
-        Additionnal INFO
-      </b-modal> -->
 </template>
 
 <script>
@@ -80,7 +97,18 @@ import grades from '../helper/grades'
 
 export default {
   name: 'bond',
-  methods: {},
+  methods: {
+    showModal () {
+      this.$refs.myModalRef.show()
+    },
+    hideModal () {
+      this.$refs.myModalRef.hide()
+    },
+    async proposeBid () {
+      await bond.initAddress(this.details.contract)
+      await bond.addBid(this.interestRate, 34033) // Right now the bloom id is fixed since we have done this already in other part
+    }
+  },
   beforeCreate: async function () {
     await bond.init()
     // await bond.initAddress(this.addr)
@@ -94,7 +122,8 @@ export default {
   mounted: function () {
   },
   props: ['addr', 'details'],
-  components: {},
+  components: {
+  },
   computed: {
     SPgrade () {
 
@@ -120,8 +149,8 @@ export default {
   },
   data () {
     return {
-      infos: this.details
-
+      infos: this.details,
+      interestRate: 0
     }
   }
 }
