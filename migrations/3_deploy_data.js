@@ -26,7 +26,7 @@ module.exports = function (deployer) {
       5,
       3,
       loanRegistry.address,
-      '0xc66bD3780C297Baa1d910923c8b47Dce4b284076'
+      '0x3009Fb76bcA35C0675eC087f281B8b964b7ccbc5'
     )
     // Third Bond
     await deployer.deploy(
@@ -37,7 +37,7 @@ module.exports = function (deployer) {
       2,
       10,
       loanRegistry.address,
-      '0xc66bD3780C297Baa1d910923c8b47Dce4b284076'
+      '0x0fb12568c9cdeadfefb70ecb33d2ecbd4a6a6432'
     )
     // fourth Bond
     await deployer.deploy(
@@ -48,12 +48,12 @@ module.exports = function (deployer) {
       2,
       10,
       loanRegistry.address,
-      '0xc66bD3780C297Baa1d910923c8b47Dce4b284076'
+      '0xf1d09dd338d4a2affbf0cfe01a89381550177c1a'
     )
     const auditorsRegistry = await AuditorsRegistry.deployed()
-    auditorsRegistry.selfRegistration("S&P", { "from": "0x7Baa1d910923c8b47Dce4b284076c66bD3780C29" })
-    auditorsRegistry.selfRegistration("His Grandma", { "from": "0xc66bD3780C297Baa1d910923c8b47Dce4b284076" })
-    auditorsRegistry.selfRegistration("Anymous & Registered", { "from": "0xD48F0C3B257584181e144B51F8D55ac7cFD01d50" })
-    auditorsRegistry.selfRegistration("just a guy", { "from": "0xb284076c66bD3780C297Baa1d910923c8b47Dce4" })
+    auditorsRegistry.selfRegistration("S&P", { "from": "0xc66bD3780C297Baa1d910923c8b47Dce4b284076" })
+    auditorsRegistry.selfRegistration("His Grandma", { "from": "0x3009Fb76bcA35C0675eC087f281B8b964b7ccbc5" })
+    auditorsRegistry.selfRegistration("Anymous & Registered", { "from": "0x0fb12568c9cdeadfefb70ecb33d2ecbd4a6a6432" })
+    auditorsRegistry.selfRegistration("just a guy", { "from": "0xf1d09dd338d4a2affbf0cfe01a89381550177c1a" })
   })
 }

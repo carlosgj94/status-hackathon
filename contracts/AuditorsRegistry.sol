@@ -18,16 +18,15 @@ contract AuditorsRegistry {
     mapping(address => Auditor) public auditors;
 
     function selfRegistration(string _name) public payable {
-      //primitive barrier to entry, a stake
-      require(msg.value == 1 ether);
+      //primitive barrier to entry: a stake ( disabled to facilitate testing)
+      // require(msg.value == 1 ether);
       auditors[msg.sender].name= _name;
     }
 
     function selfUnlisting() public  {
-      //primitive barrier to entry, a stake
       require(!auditors[msg.sender].unlisted );
       auditors[msg.sender].unlisted= true;
-      msg.sender.transfer(1 ether);
+      // msg.sender.transfer(1 ether);
     }
 
     function getAuditor(address _addr) public view returns(string) {

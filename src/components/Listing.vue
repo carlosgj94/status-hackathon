@@ -80,6 +80,7 @@ export default {
       }
       await AuditorsRegistryHelper.init()
       this.loans[arrayPosition].auditor = await AuditorsRegistryHelper.getAuditor(actualBond[13])
+      console.log("AUDITOR:",this.loans[arrayPosition].auditor)
     }
   },
   created: async function () {

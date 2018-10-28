@@ -8,12 +8,10 @@
               <p class="card-text">
                 <b-progress :value="details.rating" :max="20" variant="secondary"></b-progress>
                 <br>
-                  <!-- {{ SPgrade }}  -->
-                   <button type="button" class="btn btn-secondary btn-sm">{{ details.auditor }}  </button>
+                <button type="button" class="btn btn-secondary btn-sm">{{ details.auditor }}  </button>
                    
               </p>
             </b-card>
-
           </b-col>
           <b-col cols="8">
             <h3>Bond  <b-badge variant="info">{{details.principal/100}}  ♦</b-badge></h3> 
@@ -128,11 +126,12 @@ export default {
   },
   computed: {
     SPgrade () {
+      console.log(this.details.grade)
 
       // const gr= 20-this.info.grade
       // console.log(this.info.grade)
       // return grades["S&PRating"][gr]
-      return "jj"
+      return "KK"
     }
     // colorLoan: function () {
     // console.log(this)

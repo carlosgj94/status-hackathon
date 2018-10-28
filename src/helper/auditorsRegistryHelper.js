@@ -73,10 +73,10 @@ const AuditorsRegistryHelper = {
     })
   },
 
-  getAuditor: function (name) {
+  getAuditor: function (addr) {
     let self = this
     return new Promise((resolve, reject) => {
-      self.instance.getAuditor.call(name).then((auditor) => {
+      self.instance.getAuditor.call(addr).then((auditor) => {
         resolve(auditor)
       }).catch(err => {
         reject(err)
